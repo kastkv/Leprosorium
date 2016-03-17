@@ -13,6 +13,18 @@ before do # выполняется каждый раз перед выполне
 	init_db #Инициализация БД
 end
 
+configure do #метод configure вызывается каждый раз при инициализации приложения. Инициализации происходит тогда, когда мы сохраняем файл, появляются каккие то изменения и когда мы обновляем страницу
+	init_db #затем что метод before не исполняется при конфигурации
+	# создаем нашу БД(через SQLiteManager) и причесываем. Добавляем еще параметр IF NOT EXISTS чтобы БД каждый раз не пересоздавалась
+	db.execute 'CREATE TABLE if not exists Posts 
+	(
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		create_date DATE,
+		content TEXT
+	)'
+
+end	
+
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
 end

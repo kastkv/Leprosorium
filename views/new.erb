@@ -1,7 +1,7 @@
 <h2>Add New Post</h2>
 <p><!--копируем форму с bootstrap ->css -->
 	<form action="/new" method="POST" role="form" > <!--обязательные атрибуты form, которые надо запомнить и которые должны быть у формы: 1. атрибут action - говорит о том куда будут отправляться данные, а нашем случае по url /new, 2.атрибут method может принимать  GET и POST запросы(в нашем случае POST - отправка данных) !!! Важно запомнить, часто встречается-->
-	  <textarea class="form-control" rows="6" placeholder="Type post text here"></textarea> <!--теперь добавим Textaria - отвечает за ввод данных на многих линиях. Интересный атрибут placeholder(появляется серым - введите здесь...)-  фишка html-->
+	  <textarea name="content" class="form-control" rows="6" placeholder="Type post text here" style="width: 400px"></textarea> <!--теперь добавим Textaria - отвечает за ввод данных на многих линиях. Интересный атрибут placeholder(появляется серым - введите здесь...)-  фишка html. style="width: 400px" - добавляем CSS стиль(изменяем ширину поля). name - имя с помощью которого мы сможем обратиться к textarea -->
 	  <br />  <!--отодвинем кнопку-->
 	  <button type="submit" class="btn btn-primary">Submit</button> <!--сделаем кнопку синей, btn-primary вместо btn-default-->
 	</form>

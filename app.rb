@@ -2,6 +2,15 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader' # чтобы не перезапускать sinatra каждый раз
+require 'sqlite3'
+
+def init_db #сделаем специлаьную процедуру для инициализации глобальной переменной, почему специальной, потому что будем использовать в конфигурациии приложения
+	@db = SQLite3::Database.new 'leprosorium.db' #SQLite3 обращается к пространству имен из модуля require 'sqlite3', в этом модуле сеществует класс Database, в котором есть метод .new и он принимает 1 параметр - имя нашей БД 'leprosorium.db'
+	@db.results_as_hash = true # задаим свойство, чтобы наши результаты возвращались в виде хеша, а не в виде массива, потому что так будет удобней к ним обращаться (не обязательно). Проверем что это раьботает перейдя куда-нибудь по закладкам, что не выдает ошибок.
+end	
+
+before do # выполняется каждый раз перед выполнением запроса
+end
 
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
@@ -18,5 +27,6 @@ end
 post '/new' do #отправляем post запрос
 	content = params[:content] # переменной content присваем значение textarea(отправляем ее), обращаемся к переменно по имени name="content"
 
-	erb "You typed #{content}" #выводим, сто мы ввели(т.е. мы обращаемся к конкретной переменной)
+	erb "You typed: #{content}" #выводим, сто мы ввели(т.е. мы обращаемся к конкретной переменной)
+	# переменной content не нужно глобального вида - @content, так как мы не обращаемся из нашего вида
 end	

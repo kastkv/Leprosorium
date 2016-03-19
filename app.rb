@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader' # чтобы не перезапускать sinatra каждый раз
@@ -54,7 +56,11 @@ post '/new' do #отправляем post запрос
 		@error = 'Type type text'  #если ничего не ввели выдаст ошибку
  		return erb :new      	   # и вернет наше представление	
 	end	
+	
+	@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
+	 #обращаемся к БД (функция execute может принимать 2 параметра), затем добавление в табилцу (datetime()- вставит текущее время)
+	 #cохранение данных в БД со страницы
 
-	erb "You typed: #{content}" #выводим, сто мы ввели(т.е. мы обращаемся к конкретной переменной)
+	erb "You typed: #{content}" #выводим, что мы ввели(т.е. мы обращаемся к конкретной переменной)
 	# переменной content не нужно глобального вида - @content, так как мы не обращаемся из нашего вида
 end	

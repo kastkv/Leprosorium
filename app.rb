@@ -75,8 +75,11 @@ end
 # вывод информации о посте
 
 get '/details/:post_id' do  # универсальный обработчик для всех постов с любым значением, которое мы омжем задать
-	post_id = params[:post_id]
+	post_id = params[:post_id] # просто получаем параметр из url
 
-	erb "Displaying information for post with id #{post_id}"
+	results = @db.execute 'select * from Posts where id = ?', [post_id] # мы вибираем все посты с id, который будем передовать(т.к. id у нас уникальный будет выбираться 1 пост)
+	@row = results[0] # у нас будет 1 строка с индексом 0
+
+	erb :details
 
 end	

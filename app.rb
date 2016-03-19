@@ -90,3 +90,16 @@ get '/details/:post_id' do  # универсальный обработчик д
 	erb :details
 
 end	
+
+# добавим post-обработчик для нашего url (/details/...)
+# (браузер отправляет данные на сервер, мы их принимаем)
+post '/details/:post_id' do 
+	# получаем переменную из url`a
+	post_id = params[:post_id] # просто получаем параметр из url
+
+	# получаем переменную из post-запроса
+	content = params[:content] # переменной content присваем значение textarea(отправляем ее), обращаемся к переменно по имени name="content"
+
+	erb "You typed comment #{content} for post #{post_id}"
+
+end	

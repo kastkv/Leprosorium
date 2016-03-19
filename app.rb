@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader' # чтобы не перезапускать sinatra каждый раз
@@ -58,7 +60,7 @@ post '/new' do #отправляем post запрос
  		return erb :new      	   # и вернет наше представление	
 	end	
 
-	 #cохранение данных в БД со страницы
+	 #cохранение данных в БД со страницы (ошибка с кодировкой!)
 	@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
 	 #обращаемся к БД (функция execute может принимать 2 параметра), затем добавление в табилцу (datetime()- вставит текущее время)
 	

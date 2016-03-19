@@ -28,6 +28,15 @@ configure do
 		content TEXT
 	)'  # ; не обязательно, т.к. execute подразумевает, что будет выполнена 1 команда
 
+	# создаем нашу таблицу Comments
+	@db.execute 'CREATE TABLE if not exists Comments
+	(
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		create_date DATE,
+		content TEXT
+		post_id Integer
+	)'  # добавим еще одно поле, которое будет содержать идентификатор поста
+	# Проблема в том что таблица Comments есть и post_id не добавится. Для этого есть миграция в Rails(она бы автоматически исполнилась, но это позже. Из консоли удалим таблицу drop table Comments; и сейчас она будет создана заново и будет наш post_id
 end	
 
 get '/' do

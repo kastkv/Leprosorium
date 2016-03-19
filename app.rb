@@ -71,3 +71,12 @@ post '/new' do #отправляем post запрос
 	# перенаправление на главную страницу(после введеннго поста)
 	redirect to '/'
 end	
+ 
+# вывод информации о посте
+
+get '/details/:post_id' do  # универсальный обработчик для всех постов с любым значением, которое мы омжем задать
+	post_id = params[:post_id]
+
+	erb "Displaying information for post with id #{post_id}"
+
+end	

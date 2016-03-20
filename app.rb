@@ -92,6 +92,9 @@ get '/details/:post_id' do  # универсальный обработчик д
 	# (у нас будет только один пост)
 	results = @db.execute 'select * from Posts where id = ?', [post_id] # мы вибираем все посты с id, который будем передовать(т.к. id у нас уникальный будет выбираться 1 пост)
 	
+	# выбираем комментарии для нашего поста
+	@comments = @db.execute 'select * from Posts where id = ? order by id', [post_id]
+
 	# выбираем этот один пост в переменную @row
 	@row = results[0] # у нас будет 1 строка с индексом 0
 

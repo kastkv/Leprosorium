@@ -109,6 +109,23 @@ post '/details/:post_id' do
 	# получаем переменную из post-запроса
 	content = params[:content] # переменной content присваем значение textarea(отправляем ее), обращаемся к переменно по имени name="content"
 
-	erb "You typed comment #{content} for post #{post_id}"
+	#cохранение данных в БД со страницы (ошибка с кодировкой!)
+	@db.execute 'insert into Comments 
+	(
+		content, 
+		created_date, 
+		post_id
+	) 
+		values 
+	(
+		?, 
+		datetime(),
+		?
+	)', [content, post_id] # в created_date вставляется datetime(), остальное берется из массива(сколько знаков вопросов столько и элементов в нашем массиве)
+
+	#erb "You typed comment #{content} for post #{post_id}"
+
+	# перенаправляем на страницу поста
+	redirect to('/details/' + post_id)
 
 end	
